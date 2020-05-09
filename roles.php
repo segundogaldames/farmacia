@@ -29,7 +29,10 @@ $res = $roles->getRoles();
 						<th>Rol</th>
 					</tr>
 					<?php foreach($res as $r): ?>
-
+						<tr>
+							<td><?php echo $r['id']; ?></td>
+							<td><?php echo $r['nombre']; ?></td>
+						</tr>
 					<?php endforeach; ?>
 				</table>
 			</div>
