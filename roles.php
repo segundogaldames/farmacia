@@ -23,18 +23,26 @@ $res = $roles->getRoles();
 		<?php include('header.php'); ?>
 		<div class="row">
 			<div class="col-md-6 mt-3">
-				<table class="table table-hover">
-					<tr>
-						<th>Id</th>
-						<th>Rol</th>
-					</tr>
-					<?php foreach($res as $r): ?>
-						<tr>
-							<td><?php echo $r['id']; ?></td>
-							<td><?php echo $r['nombre']; ?></td>
-						</tr>
-					<?php endforeach; ?>
-				</table>
+				<h3>Roles</h3>
+				<!--Valida o notifica que el registro se ha realizado-->
+				<?php if(isset($_GET['m'])): ?>
+					<p class="alert alert-success">El rol se ha registrado correctamente</p>
+				<?php endif; ?>
+
+				<a href="addRoles.php" class="btn btn-primary">Nuevo Rol</a>
+				<?php if(isset($res) && count($res)): ?>
+					<table class="table table-hover">
+						<?php foreach($res as $r): ?>
+							<tr>
+								<td>
+									<a href="verRol.php?id=<?php echo $r['id']; ?>"><?php echo $r['nombre']; ?></a>
+								</td>
+							</tr>
+						<?php endforeach; ?>
+					</table>
+				<?php else: ?>
+					<p class="text-info mt-3">No hay roles registrados</p>
+				<?php endif; ?>
 			</div>
 		</div>
 	</div>
