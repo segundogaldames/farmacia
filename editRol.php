@@ -19,6 +19,25 @@ if (isset($_GET['id'])) {
 		$msg = 'error';
 		header('Location: roles.php?e=' . $msg);
 	}
+
+	if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
+		//sanitizamos el dato
+		//print_r($_POST);exit;
+		$nombre = trim(strip_tags($_POST['nombre']));
+
+		if (!$nombre) {
+			$mensaje = 'Ingrese el nombre del rol';
+		}else{
+			//print_r($id);exit;
+			//actualizamos el rol
+			$sql = $roles->editRoles($id, $nombre);
+			//print_r($res);exit;
+			if ($sql) {
+				$msg = 'ok';
+				header('Location: verRol.php?m=' . $msg . '&id=' . $id);
+			}
+		}
+	}
 }
 
 //print_r($res);
@@ -48,34 +67,17 @@ if (isset($_GET['id'])) {
 					<p class="alert alert-danger"><?php echo $mensaje; ?></p>
 				<?php endif; ?>
 
-				<table class="table table-hover">
-					<tr>
-						<th>Rol:</th>
-						<td><?php echo $res['nombre']; ?></td>
-					</tr>
-					<tr>
-						<th>Fecha de creación:</th>
-						<td>
-							<?php
-								$fecha_reg = new DateTime($res['created_at']);
-								echo $fecha_reg->format('d-m-Y H:i:s');
-							?>
-						</td>
-					</tr>
-					<tr>
-						<th>Fecha de modificación:</th>
-						<td>
-							<?php
-								$fecha_mod = new DateTime($res['updated_at']);
-								echo $fecha_mod->format('d-m-Y H:i:s');
-							?>
-						</td>
-					</tr>
-				</table>
-				<p>
-					<a href="editRol.php?id=<?php echo $res['id']; ?>" class="btn btn-link">Editar</a>
-					<a href="roles.php" class="btn btn-link">Volver</a>
-				</p>
+				<form action="" method="post">
+					<div class="form-group">
+						<label>Nombre del rol</label>
+						<input type="text" name="nombre" value="<?php echo $res['nombre']; ?>" placeholder="Nombre del rol" class="form-control">
+					</div>
+					<div class="form-group">
+						<input type="hidden" name="enviar" value="si">
+						<button type="submit" class="btn btn-success">Modificar</button>
+						<a href="roles.php" class="btn btn-link">Volver</a>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>

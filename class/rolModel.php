@@ -27,6 +27,7 @@ class rolModel extends Modelo
 		return $rol->fetch();
 	}
 
+	//verificar el registro previo de un rol
 	public function getRolNombre($nombre){
 		$rol = $this->_db->prepare("SELECT id FROM roles WHERE nombre = ?");
 		$rol->bindParam(1, $nombre);
@@ -41,6 +42,21 @@ class rolModel extends Modelo
 		$rol->execute();//ejecutamos la consulta
 
 		$row = $rol->rowCount(); //devuelve la cantidad de registros insertados
+		return $row;
+	}
+
+	//metodo para actualizar o modificar roles
+	public function editRoles($id, $nombre){
+		//print_r($nombre);exit;
+		$id = (int) $id;
+
+		$rol = $this->_db->prepare("UPDATE roles SET nombre = ?, updated_at = now() WHERE id = ?");
+		$rol->bindParam(1, $nombre);
+		$rol->bindParam(2, $id);
+		$rol->execute();
+
+		$row = $rol->rowCount(); //devuelve la cantidad de registros modificadas
+		//print_r($row);exit;
 		return $row;
 	}
 }

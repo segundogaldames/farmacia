@@ -29,6 +29,10 @@ $res = $roles->getRoles();
 					<p class="alert alert-success">El rol se ha registrado correctamente</p>
 				<?php endif; ?>
 
+				<?php if(isset($_GET['e'])): ?>
+					<p class="alert alert-danger">El dato no existe</p>
+				<?php endif; ?>
+
 				<a href="addRoles.php" class="btn btn-primary">Nuevo Rol</a>
 				<?php if(isset($res) && count($res)): ?>
 					<table class="table table-hover">

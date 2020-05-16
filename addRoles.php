@@ -8,7 +8,7 @@ $roles = new rolModel;
 
 //print_r($res);
 if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
-	$nombre = strip_tags($_POST['nombre']);
+	$nombre = trim(strip_tags($_POST['nombre']));
 
 	if (!$nombre) {
 		$mensaje = 'Ingrese el nombre del rol';
