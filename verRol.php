@@ -75,6 +75,7 @@ if (isset($_GET['id'])) {
 				<p>
 					<a href="editRol.php?id=<?php echo $res['id']; ?>" class="btn btn-link">Editar</a>
 					<a href="roles.php" class="btn btn-link">Volver</a>
+					<a href="delRol.php?id=<?php echo $res['id']; ?>" class="btn btn-danger">Eliminar</a>
 				</p>
 			</div>
 		</div>
