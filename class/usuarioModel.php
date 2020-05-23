@@ -1,5 +1,5 @@
 <?php
-require('modelo.php');
+require_once('modelo.php');
 
 class usuarioModel extends Modelo{
 
@@ -19,7 +19,7 @@ class usuarioModel extends Modelo{
 	public function getUsuarioId($id){
 		$id = (int) $id;
 
-		$usu = $this->_db->prepare("SELECT u.id, u.nombre as usuario, r.nombre as rol, u.active, u.email, u.created_at, u.updated_at FROM usuarios u INNER JOIN roles r ON u.rol_id = r.id WHERE u.id = ?");
+		$usu = $this->_db->prepare("SELECT u.id, u.nombre as usuario, r.nombre as rol, u.rol_id, u.active, u.email, u.created_at, u.updated_at FROM usuarios u INNER JOIN roles r ON u.rol_id = r.id WHERE u.id = ?");
 		$usu->bindParam(1, $id);
 		$usu->execute();
 

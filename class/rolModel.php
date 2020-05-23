@@ -1,5 +1,5 @@
 <?php
-require('modelo.php');
+require_once('modelo.php');
 
 class rolModel extends Modelo
 {
@@ -11,7 +11,7 @@ class rolModel extends Modelo
 	//traemos todos los roles de la tabla roles
 	public function getRoles(){
 		//consulta a la tabla roles usando el objeto db de la clase modelo
-		$roles = $this->_db->query("SELECT id, nombre FROM roles ORDER BY id DESC");
+		$roles = $this->_db->query("SELECT id, nombre FROM roles ORDER BY nombre");
 
 		//retornamos lo que haya en la tabla roles
 		return $roles->fetchall();
