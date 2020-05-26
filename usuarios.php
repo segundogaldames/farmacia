@@ -1,6 +1,7 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
+session_start();
 
 require('class/usuarioModel.php');
 //creamos una instancia de la clase rolModel
@@ -23,6 +24,7 @@ $res = $usuarios->getUsuarios();
 		<?php include('header.php'); ?>
 		<div class="row">
 			<div class="col-md-8 mt-3">
+				<p class="text-info">Usted se ha logueado con el email <?php echo $_SESSION['email']; ?></p>
 				<h3>Usuarios</h3>
 				<!--Valida o notifica que el registro se ha realizado-->
 				<?php if(isset($_GET['m'])): ?>
