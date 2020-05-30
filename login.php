@@ -28,6 +28,7 @@ if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 			$_SESSION['id'] = $res['id'];//esta variable de session guarda el id del usuario registrado
 			$_SESSION['nombre'] = $res['nombre'];//esta variable de session guarda el nombre del usuario
 			$_SESSION['email'] = $res['email'];//esta variable de session guarda el email del usuario
+			$_SESSION['rol'] = $res['rol'];//esta variable de session guarda el nombre del rol del usuario
 
 			header('Location: index.php');
 		}else{

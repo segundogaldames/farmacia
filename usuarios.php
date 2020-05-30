@@ -24,16 +24,9 @@ $res = $usuarios->getUsuarios();
 		<?php include('header.php'); ?>
 		<div class="row">
 			<div class="col-md-8 mt-3">
-				<p class="text-info">Usted se ha logueado con el email <?php echo $_SESSION['email']; ?></p>
 				<h3>Usuarios</h3>
 				<!--Valida o notifica que el registro se ha realizado-->
-				<?php if(isset($_GET['m'])): ?>
-					<p class="alert alert-success">El usuario se ha registrado correctamente</p>
-				<?php endif; ?>
-
-				<?php if(isset($_GET['e'])): ?>
-					<p class="alert alert-success">El usuario no se ha registrado correctamente</p>
-				<?php endif; ?>
+				<?php include('mensajes.php'); ?>
 
 				<a href="addUsuarios.php" class="btn btn-primary">Nuevo Usuario</a>
 				<?php if(isset($res) && count($res)): ?>

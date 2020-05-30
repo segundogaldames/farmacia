@@ -39,7 +39,7 @@ class usuarioModel extends Modelo{
 	public function getUsuarioRegistrado($email, $clave){
 		$clave = sha1($clave);
 
-		$usu = $this->_db->prepare("SELECT id, nombre, email FROM usuarios WHERE email = ? and password = ?");
+		$usu = $this->_db->prepare("SELECT u.id, u.nombre, u.email, r.nombre as rol FROM usuarios u INNER JOIN roles r ON u.rol_id = r.id WHERE u.email = ? AND u.password = ? AND u.active = 1");
 		$usu->bindParam(1, $email);
 		$usu->bindParam(2, $clave);
 		$usu->execute();
@@ -73,7 +73,8 @@ class usuarioModel extends Modelo{
 		$usu->bindParam(1, $nombre);
 		$usu->bindParam(2, $email);
 		$usu->bindParam(3, $rol);
-		$usu->bindParam(4, $id);
+		$usu->bindParam(4, $active);
+		$usu->bindParam(5, $id);
 		$usu->execute();
 
 		$row = $usu->rowCount();

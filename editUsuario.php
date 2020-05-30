@@ -1,6 +1,7 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
+session_start();
 
 require('class/rolModel.php');
 require('class/usuarioModel.php');
@@ -27,8 +28,7 @@ if (isset($_GET['id'])) {
 		$nombre = trim(strip_tags($_POST['nombre']));
 		$email = trim(strip_tags($_POST['email']));
 		$rol = (int) $_POST['rol'];
-		$password = trim(strip_tags($_POST['password']));
-		$repassword = trim(strip_tags($_POST['repassword']));
+		$active = (int) $_POST['active'];
 
 		if (!$nombre) {
 			$mensaje = 'Ingrese el nombre del usuario';
@@ -36,27 +36,17 @@ if (isset($_GET['id'])) {
 			$mensaje = 'Ingrese el email del usuario';
 		}elseif (!$rol) {
 			$mensaje = 'Seleccione el rol del usuario';
-		}elseif (!$password || strlen($password) < 8) {
-			$mensaje = 'El password del usuario debe tener al menos 8 caracteres';
-		}elseif ($password != $repassword) {
-			$mensaje = 'El password no coincide';
+		}elseif(!$active){
+			$mensaje = 'Seleccione una opcion para activo';
 		}else{
-			//verificar que el usuario no se haya registrado previamente
-			$res = $usuarios->getUsuarioEmail($email);
+			$usu = $usuarios->editUsuario($id, $nombre, $email, $rol, $active);
 
-			if ($res) {
-				$mensaje = 'El usuario ingresado ya existe';
+			if($usu){
+				$_SESSION['success'] = 'El usuario se ha modificado correctamente';
+				header('Location: verUsuario.php?id=' . $id);
 			}else{
-				//enviar los datos a la base de datos
-				$sql = $usuarios->setUsuario($nombre, $email, $password, $rol);
-
-				if ($sql) {
-					$msg = 'ok';
-					header('Location: usuarios.php?m=' . $msg);
-				}else{
-					$msg = 'error';
-					header('Location: usuarios.php?e=' . $msg);
-				}
+				$_SESSION['danger'] = 'El usuario no se ha modificado';
+				header('Location: verUsuario.php?id=' . $id);
 			}
 		}
 	}
@@ -86,7 +76,7 @@ if (isset($_GET['id'])) {
 				<form action="" method="post">
 					<div class="form-group">
 						<label>Nombre</label>
-						<input type="text" name="nombre" value="<?php echo $usu['nombre']; ?>" placeholder="Nombre del usuario" class="form-control">
+						<input type="text" name="nombre" value="<?php echo $usu['usuario']; ?>" placeholder="Nombre del usuario" class="form-control">
 					</div>
 					<div class="form-group">
 						<label>Email</label>
@@ -95,7 +85,7 @@ if (isset($_GET['id'])) {
 					<div class="form-group">
 						<label>Rol</label>
 						<select name="rol" class="form-control">
-							<option value="<?php echo $usu['usuario_id'] ?>"><?php echo $usu['rol']; ?></option>
+							<option value="<?php echo $usu['rol_id'] ?>"><?php echo $usu['rol']; ?></option>
 							<?php foreach($res as $r):?>
 								<option value="<?php echo $r['id']; ?>"><?php echo $r['nombre']; ?></option>
 							<?php endforeach; ?>
@@ -103,7 +93,7 @@ if (isset($_GET['id'])) {
 					</div>
 					<div class="form-group">
 						<label>Estado</label>
-						<select name="rol" class="form-control">
+						<select name="active" class="form-control">
 							<option value="<?php echo $usu['active'] ?>">
 								<?php if($usu['active']==1): ?>Activo <?php else: ?> Inactivo <?php endif; ?>
 							</option>

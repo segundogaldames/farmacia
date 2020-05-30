@@ -16,18 +16,20 @@
           <a class="nav-link" href="cerrar.php">Cerrar Session</a>
         <?php endif; ?>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Administración
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="roles.php">Roles</a>
-          <a class="dropdown-item" href="usuarios.php">Usuarios</a>
-        </div>
-      </li>
+      <?php if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'): ?>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Administración
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="roles.php">Roles</a>
+            <a class="dropdown-item" href="usuarios.php">Usuarios</a>
+          </div>
+        </li>
+      <?php endif; ?>  
       <li class="nav-item">
         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
       </li>

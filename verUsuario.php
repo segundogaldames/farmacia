@@ -1,6 +1,7 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
+session_start();
 
 require('class/rolModel.php');
 require('class/usuarioModel.php');
@@ -40,13 +41,7 @@ if (isset($_GET['id'])) {
 			<div class="col-md-6 mt-3">
 				<h3>Usuario</h3>
 				<!--Valida o notifica que el registro se ha realizado-->
-				<?php if(isset($_GET['m'])): ?>
-					<p class="alert alert-success">El rol se ha modificado correctamente</p>
-				<?php endif; ?>
-
-				<?php if(isset($mensaje)): ?>
-					<p class="alert alert-danger"><?php echo $mensaje; ?></p>
-				<?php endif; ?>
+				<?php include('mensajes.php'); ?>
 
 				<table class="table table-hover">
 					<tr>

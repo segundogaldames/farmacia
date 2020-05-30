@@ -38,11 +38,11 @@ if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 			$sql = $usuarios->setUsuario($nombre, $email, $password, $rol);
 
 			if ($sql) {
-				$msg = 'ok';
-				header('Location: usuarios.php?m=' . $msg);
+				$_SESSION['success'] = 'El usuario se ha registrado correctamente';
+				header('Location: usuarios.php');
 			}else{
-				$msg = 'error';
-				header('Location: usuarios.php?e=' . $msg);
+				$_SESSION['danger'] = 'El usuario no se ha registrado';
+				header('Location: usuarios.php');
 			}
 		}
 	}

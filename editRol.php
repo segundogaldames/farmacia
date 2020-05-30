@@ -1,6 +1,7 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
+session_start();
 
 require('class/rolModel.php');
 //creamos una instancia de la clase rolModel
@@ -41,7 +42,7 @@ if (isset($_GET['id'])) {
 }
 
 //print_r($res);
-
+if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 ?>
 <!DOCTYPE html>
 <html>
@@ -83,3 +84,6 @@ if (isset($_GET['id'])) {
 	</div>
 </body>
 </html>
+<?php else: ?>
+	<p class="text-info">Acceso restringido</p>
+<?php endif; ?>

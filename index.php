@@ -25,6 +25,7 @@ if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] == 'si'):
 				<ul>
 					<li>Su id de usuario es <?php echo $_SESSION['id']; ?></li>
 					<li>Su correo es <?php echo $_SESSION['email']; ?></li>
+					<li>Su rol es <?php echo $_SESSION['rol']; ?></li>
 				</ul>
 			</div>
 		</div>
