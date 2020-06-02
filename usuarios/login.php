@@ -3,7 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 session_start();
 
-require('class/usuarioModel.php');
+require('../class/usuarioModel.php');
 
 
 //print_r($res);
@@ -30,7 +30,7 @@ if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 			$_SESSION['email'] = $res['email'];//esta variable de session guarda el email del usuario
 			$_SESSION['rol'] = $res['rol'];//esta variable de session guarda el nombre del rol del usuario
 
-			header('Location: index.php');
+			header('Location: ../index.php');
 		}else{
 			$mensaje = 'El usuario o el password no son correctos';
 		}
@@ -49,7 +49,7 @@ if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 </head>
 <body>
 	<div class="container">
-		<?php include('header.php'); ?>
+		<?php include('../partials/header.php'); ?>
 		<div class="row">
 			<div class="col-md-6 mt-3">
 				<h3>Login Usuario</h3>

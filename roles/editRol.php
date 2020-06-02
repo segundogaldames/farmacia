@@ -3,7 +3,8 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 session_start();
 
-require('class/rolModel.php');
+require('../class/rolModel.php');
+require('../class/config.php');
 //creamos una instancia de la clase rolModel
 $roles = new rolModel;
 
@@ -55,7 +56,7 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 </head>
 <body>
 	<div class="container">
-		<?php include('header.php'); ?>
+		<?php include('../partials/header.php'); ?>
 		<div class="row">
 			<div class="col-md-6 mt-3">
 				<h3>Rol</h3>
@@ -84,6 +85,7 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 	</div>
 </body>
 </html>
-<?php else: ?>
-	<p class="text-info">Acceso restringido</p>
-<?php endif; ?>
+<?php else: 
+	header('Location: ' . BASE_URL . 'index.php');
+	endif;
+?>

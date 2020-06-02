@@ -3,7 +3,8 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 session_start();
 
-require('class/usuarioModel.php');
+require('../class/usuarioModel.php');
+require('../class/config.php');
 //creamos una instancia de la clase rolModel
 $usuarios = new usuarioModel;
 $res = $usuarios->getUsuarios();
@@ -21,12 +22,12 @@ $res = $usuarios->getUsuarios();
 </head>
 <body>
 	<div class="container">
-		<?php include('header.php'); ?>
+		<?php include('../partials/header.php'); ?>
 		<div class="row">
 			<div class="col-md-8 mt-3">
 				<h3>Usuarios</h3>
 				<!--Valida o notifica que el registro se ha realizado-->
-				<?php include('mensajes.php'); ?>
+				<?php include('../partials/mensajes.php'); ?>
 
 				<a href="addUsuarios.php" class="btn btn-primary">Nuevo Usuario</a>
 				<?php if(isset($res) && count($res)): ?>

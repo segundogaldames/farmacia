@@ -1,3 +1,6 @@
+<?php
+//require($_SERVER['DOCUMENT_ROOT'] . '/farmacia/class/config.php');
+?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#">Farmacia</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -7,13 +10,13 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="<?php echo BASE_URL . 'index.php' ?>">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
         <?php if(!isset($_SESSION['autenticado'])): ?>
-          <a class="nav-link" href="login.php">Iniciar Session</a>
+          <a class="nav-link" href="<?php echo BASE_URL . 'usuarios/login.php' ?>">Iniciar Session</a>
         <?php else: ?>
-          <a class="nav-link" href="cerrar.php">Cerrar Session</a>
+          <a class="nav-link" href="<?php echo BASE_URL . 'usuarios/cerrar.php' ?>">Cerrar Session</a>
         <?php endif; ?>
       </li>
       <?php if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'): ?>
@@ -25,8 +28,8 @@
             <a class="dropdown-item" href="#">Action</a>
             <a class="dropdown-item" href="#">Another action</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="roles.php">Roles</a>
-            <a class="dropdown-item" href="usuarios.php">Usuarios</a>
+            <a class="dropdown-item" href="<?php echo BASE_URL . 'roles/roles.php' ?>">Roles</a>
+            <a class="dropdown-item" href="<?php echo BASE_URL . 'usuarios/usuarios.php' ?>">Usuarios</a>
           </div>
         </li>
       <?php endif; ?>  

@@ -3,6 +3,23 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 session_start();
 
+
+define('DS', DIRECTORY_SEPARATOR);
+define('ROOT', realpath(dirname(__FILE__)) . DS);
+define('APP_PATH', ROOT . 'class' . DS);
+
+try{
+	require APP_PATH . 'config.php';
+}
+catch(Exception $e){
+	echo $e->getMessage();
+}
+
+
+
+
+//print_r(APP_PATH);exit;
+
 if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] == 'si'):
 ?>
 <!DOCTYPE html>
@@ -16,7 +33,7 @@ if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] == 'si'):
 </head>
 <body>
 	<div class="container">
-		<?php include('header.php'); ?>
+		<?php include('partials/header.php'); ?>
 		<div class="row">
 			<div class="col-md-12 mt-3">
 				<h4>
@@ -32,6 +49,8 @@ if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] == 'si'):
 	</div>
 </body>
 </html>
-<?php else: ?>
-	<p class="alert alert-danger">Acceso restringido</p>
-<?php endif; ?>
+<?php else: 
+	header('Location: ' . BASE_URL . 'usuarios/login.php');
+endif;
+?>
+	

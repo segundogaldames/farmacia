@@ -2,7 +2,8 @@
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
-require('class/rolModel.php');
+require('../class/rolModel.php');
+require('../class/config.php');
 //creamos una instancia de la clase rolModel
 $roles = new rolModel;
 
@@ -30,6 +31,7 @@ if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 	}
 }
 
+if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 ?>
 <!DOCTYPE html>
 <html>
@@ -42,7 +44,7 @@ if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 </head>
 <body>
 	<div class="container">
-		<?php include('header.php'); ?>
+		<?php include('../partials/header.php'); ?>
 		<div class="row">
 			<div class="col-md-6 mt-3">
 				<h3>Nuevo Rol</h3>
@@ -66,3 +68,7 @@ if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 	</div>
 </body>
 </html>
+<?php else: 
+	header('Location: ' . BASE_URL . 'index.php');
+	endif;
+?>

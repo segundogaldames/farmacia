@@ -2,7 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
-require('class/rolModel.php');
+require('../class/rolModel.php');
 //creamos una instancia de la clase rolModel
 $roles = new rolModel;
 
