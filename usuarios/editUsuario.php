@@ -53,8 +53,7 @@ if (isset($_GET['id'])) {
 	}
 }
 
-
-
+if(isset($_SESSION['autenticado']) && ($_SESSION['rol_id'] >= 11 && $_SESSION['rol_id'] <= 12)):
 ?>
 <!DOCTYPE html>
 <html>
@@ -113,3 +112,8 @@ if (isset($_GET['id'])) {
 	</div>
 </body>
 </html>
+<?php
+	else:
+		header('Location: ' . BASE_URL . 'index.php');
+	endif;
+?>

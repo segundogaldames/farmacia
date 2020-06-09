@@ -1,6 +1,7 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
+session_start();
 
 require('../class/rolModel.php');
 require('../class/config.php');
@@ -24,12 +25,14 @@ if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 			$res = $roles->setRoles($nombre);
 
 			if ($res) {
-				$msg = 'ok';
-				header('Location: roles.php?m=' . $msg);
+				$_SESSION['success'] = 'El rol se ha registrado correctamente';
+				header('Location: roles.php');
 			}
 		}
 	}
 }
+
+//print_r($_SESSION['rol']);exit;
 
 if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 ?>

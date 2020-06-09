@@ -8,8 +8,9 @@ require('../class/config.php');
 //creamos una instancia de la clase rolModel
 $usuarios = new usuarioModel;
 $res = $usuarios->getUsuarios();
-//print_r($res);
+//print_r($_SESSION);exit;
 
+if(isset($_SESSION['autenticado']) && ($_SESSION['rol_id'] >= 11 && $_SESSION['rol_id'] <= 13)):
 ?>
 <!DOCTYPE html>
 <html>
@@ -28,8 +29,10 @@ $res = $usuarios->getUsuarios();
 				<h3>Usuarios</h3>
 				<!--Valida o notifica que el registro se ha realizado-->
 				<?php include('../partials/mensajes.php'); ?>
-
-				<a href="addUsuarios.php" class="btn btn-primary">Nuevo Usuario</a>
+				
+				<?php if($_SESSION['rol'] == 'Administrador'): ?>
+					<a href="addUsuarios.php" class="btn btn-primary">Nuevo Usuario</a>
+				<?php endif; ?>
 				<?php if(isset($res) && count($res)): ?>
 					<table class="table table-hover">
 						<tr>
@@ -61,3 +64,8 @@ $res = $usuarios->getUsuarios();
 	</div>
 </body>
 </html>
+<?php
+	else:
+		header('Location: ' . BASE_URL . 'index.php');
+	endif;
+?>

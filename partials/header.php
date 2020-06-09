@@ -24,9 +24,9 @@
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Administración
           </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">           
+            <a class="dropdown-item" href="<?php echo BASE_URL . 'categorias/categorias.php'; ?>">Categorías</a>
+            <a class="dropdown-item" href="<?php echo BASE_URL . 'marcas/marcas.php'; ?>">Marcas</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="<?php echo BASE_URL . 'roles/roles.php' ?>">Roles</a>
             <a class="dropdown-item" href="<?php echo BASE_URL . 'usuarios/usuarios.php' ?>">Usuarios</a>

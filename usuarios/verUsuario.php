@@ -19,12 +19,12 @@ if (isset($_GET['id'])) {
 	$res = $usuarios->getUsuarioId($id);
 
 	if (!$res) {
-		$mensaje = 'El dato no es valido';
+		$_SESSION['danger'] = 'El dato no es válido';
 	}
 }
 
 //print_r($res);
-
+if(isset($_SESSION['autenticado']) && ($_SESSION['rol_id'] >= 11 && $_SESSION['rol_id'] <= 13)):
 ?>
 <!DOCTYPE html>
 <html>
@@ -44,56 +44,66 @@ if (isset($_GET['id'])) {
 				<!--Valida o notifica que el registro se ha realizado-->
 				<?php include('../partials/mensajes.php'); ?>
 
-				<table class="table table-hover">
-					<tr>
-						<th>Nombre:</th>
-						<td><?php echo $res['usuario']; ?></td>
-					</tr>
-					<tr>
-						<th>Email:</th>
-						<td><?php echo $res['email']; ?></td>
-					</tr>
-					<tr>
-						<th>Rol:</th>
-						<td><?php echo $res['rol']; ?></td>
-					</tr>
-					<tr>
-						<th>Activo:</th>
-						<td>
-							<?php
-								if($res['active'] == 1): ?>
-									Si
-								<?php else: ?>
-									No
-								<?php endif; ?>
-						</td>
-					</tr>
-					<tr>
-						<th>Fecha de creación:</th>
-						<td>
-							<?php
-								$fecha_reg = new DateTime($res['created_at']);
-								echo $fecha_reg->format('d-m-Y H:i:s');
-							?>
-						</td>
-					</tr>
-					<tr>
-						<th>Fecha de modificación:</th>
-						<td>
-							<?php
-								$fecha_mod = new DateTime($res['updated_at']);
-								echo $fecha_mod->format('d-m-Y H:i:s');
-							?>
-						</td>
-					</tr>
-				</table>
-				<p>
-					<a href="editUsuario.php?id=<?php echo $res['id']; ?>" class="btn btn-link">Editar</a>
-					<a href="usuarios.php" class="btn btn-link">Volver</a>
-					<a href="#" class="btn btn-danger">Eliminar</a>
-				</p>
+				<?php if($res): ?>
+					<table class="table table-hover">
+						<tr>
+							<th>Nombre:</th>
+							<td><?php echo $res['usuario']; ?></td>
+						</tr>
+						<tr>
+							<th>Email:</th>
+							<td><?php echo $res['email']; ?></td>
+						</tr>
+						<tr>
+							<th>Rol:</th>
+							<td><?php echo $res['rol']; ?></td>
+						</tr>
+						<tr>
+							<th>Activo:</th>
+							<td>
+								<?php
+									if($res['active'] == 1): ?>
+										Si
+									<?php else: ?>
+										No
+									<?php endif; ?>
+							</td>
+						</tr>
+						<tr>
+							<th>Fecha de creación:</th>
+							<td>
+								<?php
+									$fecha_reg = new DateTime($res['created_at']);
+									echo $fecha_reg->format('d-m-Y H:i:s');
+								?>
+							</td>
+						</tr>
+						<tr>
+							<th>Fecha de modificación:</th>
+							<td>
+								<?php
+									$fecha_mod = new DateTime($res['updated_at']);
+									echo $fecha_mod->format('d-m-Y H:i:s');
+								?>
+							</td>
+						</tr>
+					</table>
+					<p>
+						<?php if($_SESSION['rol_id'] <= 12): ?>
+							<a href="editUsuario.php?id=<?php echo $res['id']; ?>" class="btn btn-link">Editar</a>		
+							<a href="#" class="btn btn-danger">Eliminar</a>
+						<?php endif; ?>
+
+						<a href="usuarios.php" class="btn btn-link">Volver</a>
+					</p>
+				<?php endif; ?>
 			</div>
 		</div>
 	</div>
 </body>
 </html>
+<?php
+	else:
+		header('Location: ' . BASE_URL . 'index.php');
+	endif;
+?>

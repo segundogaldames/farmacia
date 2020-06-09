@@ -10,6 +10,7 @@ $roles = new rolModel;
 
 //print_r($_GET);
 
+
 if (isset($_GET['id'])) {
 	//recuperamos y sanitizamos el dato que viene por cabecera
 	$id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
@@ -18,8 +19,7 @@ if (isset($_GET['id'])) {
 	$res = $roles->getRolId($id);
 
 	if (!$res) {
-		$msg = 'error';
-		header('Location: roles.php?e=' . $msg);
+		$_SESSION['danger'] = 'El dato no es válido';
 	}
 }
 
@@ -43,43 +43,38 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 			<div class="col-md-6 mt-3">
 				<h3>Rol</h3>
 				<!--Valida o notifica que el registro se ha realizado-->
-				<?php if(isset($_GET['m'])): ?>
-					<p class="alert alert-success">El rol se ha modificado correctamente</p>
+				<?php include('../partials/mensajes.php'); ?>
+				<?php if($res): ?>
+					<table class="table table-hover">
+						<tr>
+							<th>Rol:</th>
+							<td><?php echo $res['nombre']; ?></td>
+						</tr>
+						<tr>
+							<th>Fecha de creación:</th>
+							<td>
+								<?php
+									$fecha_reg = new DateTime($res['created_at']);
+									echo $fecha_reg->format('d-m-Y H:i:s');
+								?>
+							</td>
+						</tr>
+						<tr>
+							<th>Fecha de modificación:</th>
+							<td>
+								<?php
+									$fecha_mod = new DateTime($res['updated_at']);
+									echo $fecha_mod->format('d-m-Y H:i:s');
+								?>
+							</td>
+						</tr>
+					</table>
+					<p>
+						<a href="editRol.php?id=<?php echo $res['id']; ?>" class="btn btn-link">Editar</a>
+						<a href="roles.php" class="btn btn-link">Volver</a>
+						<a href="#" class="btn btn-danger">Eliminar</a>
+					</p>
 				<?php endif; ?>
-
-				<?php if(isset($mensaje)): ?>
-					<p class="alert alert-danger"><?php echo $mensaje; ?></p>
-				<?php endif; ?>
-
-				<table class="table table-hover">
-					<tr>
-						<th>Rol:</th>
-						<td><?php echo $res['nombre']; ?></td>
-					</tr>
-					<tr>
-						<th>Fecha de creación:</th>
-						<td>
-							<?php
-								$fecha_reg = new DateTime($res['created_at']);
-								echo $fecha_reg->format('d-m-Y H:i:s');
-							?>
-						</td>
-					</tr>
-					<tr>
-						<th>Fecha de modificación:</th>
-						<td>
-							<?php
-								$fecha_mod = new DateTime($res['updated_at']);
-								echo $fecha_mod->format('d-m-Y H:i:s');
-							?>
-						</td>
-					</tr>
-				</table>
-				<p>
-					<a href="editRol.php?id=<?php echo $res['id']; ?>" class="btn btn-link">Editar</a>
-					<a href="roles.php" class="btn btn-link">Volver</a>
-					<a href="#" class="btn btn-danger">Eliminar</a>
-				</p>
 			</div>
 		</div>
 	</div>

@@ -29,6 +29,7 @@ if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 			$_SESSION['nombre'] = $res['nombre'];//esta variable de session guarda el nombre del usuario
 			$_SESSION['email'] = $res['email'];//esta variable de session guarda el email del usuario
 			$_SESSION['rol'] = $res['rol'];//esta variable de session guarda el nombre del rol del usuario
+			$_SESSION['rol_id'] = $res['rol_id'];//esta variable de session guarda el rol_id de la tabla usuarios
 
 			header('Location: ../index.php');
 		}else{
@@ -53,9 +54,11 @@ if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 		<div class="row">
 			<div class="col-md-6 mt-3">
 				<h3>Login Usuario</h3>
+				
 				<?php if(isset($mensaje)): ?>
 					<p class="alert alert-danger"><?php echo $mensaje; ?></p>
 				<?php endif; ?>
+
 				<form action="" method="post">
 					<div class="form-group">
 						<label>Email</label>
