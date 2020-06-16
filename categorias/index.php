@@ -28,16 +28,16 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 		<div class="row">
 			<div class="col-md-6 mt-3">
 				<h3>Categorías</h3>
-				
+
 				<?php include('../partials/mensajes.php'); ?>
-				
-				<a href="addCategorias.php" class="btn btn-primary">Nueva Categoría</a>
+
+				<a href="add.php" class="btn btn-primary">Nueva Categoría</a>
 				<?php if(isset($res) && count($res)): ?>
 					<table class="table table-hover">
 						<?php foreach($res as $r): ?>
 							<tr>
 								<td>
-									<a href="verCategoria.php?id=<?php echo $r['id']; ?>"><?php echo $r['nombre']; ?></a>
+									<a href="show.php?id=<?php echo $r['id']; ?>"><?php echo $r['nombre']; ?></a>
 								</td>
 							</tr>
 						<?php endforeach; ?>
@@ -50,11 +50,11 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 	</div>
 </body>
 </html>
-<?php else: 
+<?php else:
 	header('Location: ' . BASE_URL . 'index.php');
 	endif;
 ?>
-	
+
 
 
 

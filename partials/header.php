@@ -24,15 +24,16 @@
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Administración
           </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">           
-            <a class="dropdown-item" href="<?php echo BASE_URL . 'categorias/categorias.php'; ?>">Categorías</a>
-            <a class="dropdown-item" href="<?php echo BASE_URL . 'marcas/marcas.php'; ?>">Marcas</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="<?php echo BASE_URL . 'categorias/'; ?>">Categorías</a>
+            <a class="dropdown-item" href="<?php echo BASE_URL . 'marcas/'; ?>">Marcas</a>
+            <a class="dropdown-item" href="<?php echo BASE_URL . 'productos/'; ?>">Productos</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="<?php echo BASE_URL . 'roles/roles.php' ?>">Roles</a>
             <a class="dropdown-item" href="<?php echo BASE_URL . 'usuarios/usuarios.php' ?>">Usuarios</a>
           </div>
         </li>
-      <?php endif; ?>  
+      <?php endif; ?>
       <li class="nav-item">
         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
       </li>

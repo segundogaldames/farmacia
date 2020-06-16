@@ -4,6 +4,7 @@ ini_set('display_errors', '1');
 session_start();
 
 require('../class/usuarioModel.php');
+require('../class/config.php');
 
 
 //print_r($res);
@@ -54,7 +55,7 @@ if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 		<div class="row">
 			<div class="col-md-6 mt-3">
 				<h3>Login Usuario</h3>
-				
+
 				<?php if(isset($mensaje)): ?>
 					<p class="alert alert-danger"><?php echo $mensaje; ?></p>
 				<?php endif; ?>

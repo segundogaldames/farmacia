@@ -5,7 +5,7 @@ class Database extends PDO
 	private $host = 'localhost';
 	private $base = 'farmacia';
 	private $user = 'root';
-	private $pass = 'root';
+	private $pass = '1234';
 	private $charset = 'utf8';
 
 	public function __construct(){

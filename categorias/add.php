@@ -26,7 +26,7 @@ if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 
 			if ($res) {
 				$_SESSION['success'] = 'La categoria se ha registrado correctamente';
-				header('Location: categorias.php');
+				header('Location: index.php');
 			}
 		}
 	}
@@ -63,7 +63,7 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 					<div class="form-group">
 						<input type="hidden" name="enviar" value="si">
 						<button type="submit" class="btn btn-success">Guardar</button>
-						<a href="categorias.php" class="btn btn-link">Volver</a>
+						<a href="index.php" class="btn btn-link">Volver</a>
 					</div>
 				</form>
 			</div>
@@ -71,7 +71,7 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 	</div>
 </body>
 </html>
-<?php else: 
+<?php else:
 	header('Location: ' . BASE_URL . 'index.php');
 	endif;
 ?>
