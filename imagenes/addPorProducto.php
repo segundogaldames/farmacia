@@ -21,40 +21,22 @@ if (isset($_GET['id'])) {
 		$titulo = trim(strip_tags($_POST['titulo']));
 		$descripcion = trim(strip_tags($_POST['descripcion']));
 		$portada = (int) $_POST['portada'];
+		$imagen = $_FILES['imagen']['name'];
+		$tmp_name = $_FILES['imagen']['tmp_name'];
 
-		$imagen = '';
+		$upload = $_SERVER['DOCUMENT_ROOT'] . '/farmacia/img/productos/';
+		$fichero_subido = $upload . basename($_FILES['imagen']['name']);
 
-		if (isset($_FILES['imagen']['name'])) {
-			require('../vendor/upload/class.upload.php');
-			$ruta = BASE_URL . 'img/'  . 'productos/';
-			print_r($ruta);exit;
-			@$upload = new upload($_FILES['imagen'], 'es_ES');
-			$upload->allowed = array('image/*');//tipos de imagenes permitidas, en este caso, todas
-			$upload->file_new_name_body = 'upl_' . uniqid();//se cambia el nombre al archivo
-			$upload->process($ruta);//ruta de alamcenamiento del archivo
+		if (move_uploaded_file($_FILES['imagen']['tmp_name'], $fichero_subido)){
 
-			if($upload->processed){
-				//si la imagen fue procesada, se creara una miniatura
-				$imagen = $upload->file_dst_name;
-				@$thumb = new upload($upload->file_dst_pathname); //instanciacion del objeto apuntando a la ruta de almacenamiento del archivo
-				$thumb->image_resize = true;
-				$thumb->image_x = 90;
-				$thumb->image_y = 70;
-				$thumb->file_name_body_pre = 'thumb_'; //nuevo nombre de la miniatura
-				$thumb->process($ruta . 'thumb' . DS); //nueva ruta de la miniatura
+			$sql = $imagenes->setImagen($titulo, $descripcion, $imagen, $producto, $portada);
+			if (!$sql) {
+				$mensaje = 'La imagen no se ha registrado correctamente';
 			}else{
-				$mensaje = 'La imagen no se ha subido';
+				$_SESSION['success'] = 'La imagen se ha registrado correctamente';
+				header('Location: ' . BASE_URL . 'productos/show.php?id=' . $producto);
 			}
 		}
-
-		$sql = $imagenes->setImagen($titulo, $descripcion, $imagen, $producto, $portada);
-		if (!$sql) {
-			$mensaje = 'La imagen no se ha registrado correctamente';
-		}else{
-			$_SESSION['success'] = 'La imagen se ha registrado correctamente';
-			header('Location: ' . BASE_URL . 'productos/show.php?id=' . $producto);
-		}
-
 	}
 }
 //print_r($_SESSION['rol']);exit;

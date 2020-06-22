@@ -28,14 +28,14 @@ class imagenModel extends Modelo
 		return $prod->fetchall();
 	}
 
-	public function setImagen($titulo, $descripcion, $nombre, $producto, $portada){
+	public function setImagen($titulo, $descripcion, $imagen, $producto, $portada){
 		$producto = (int) $producto;
-		$potada = (int) $potada;
+		$portada = (int) $portada;
 
 		$img = $this->_db->prepare("INSERT INTO imagenes VALUES(null, ?, ?, ?, ?, ?, now(), now())");
 		$img->bindParam(1, $titulo);
 		$img->bindParam(2, $descripcion);
-		$img->bindParam(3, $nombre);
+		$img->bindParam(3, $imagen);
 		$img->bindParam(4, $producto);
 		$img->bindParam(5, $portada);
 		$img->execute();
