@@ -11,6 +11,7 @@ require('../class/config.php');
 $imagenes = new imagenModel;
 $productos = new productoModel;
 
+//recepcion del id del producto
 if (isset($_GET['id'])) {
 	$producto = (int) $_GET['id'];
 	//print_r($producto);exit;
@@ -21,12 +22,23 @@ if (isset($_GET['id'])) {
 		$titulo = trim(strip_tags($_POST['titulo']));
 		$descripcion = trim(strip_tags($_POST['descripcion']));
 		$portada = (int) $_POST['portada'];
+
+		//print_r($_POST);exit;
+		//recibir el nombre original del archivo
 		$imagen = $_FILES['imagen']['name'];
+
+		//el nombre y directorio temporal
 		$tmp_name = $_FILES['imagen']['tmp_name'];
 
+		//pendientes las validaciones
+
+		// Guardamos la ruta donde almacenaremos la imagen
 		$upload = $_SERVER['DOCUMENT_ROOT'] . '/farmacia/img/productos/';
+
+		//Guardamos el directorio y el archivo en una variable
 		$fichero_subido = $upload . basename($_FILES['imagen']['name']);
 
+		//Validamos si el archivo se halla en el directorio escogido
 		if (move_uploaded_file($_FILES['imagen']['tmp_name'], $fichero_subido)){
 
 			$sql = $imagenes->setImagen($titulo, $descripcion, $imagen, $producto, $portada);
@@ -36,6 +48,8 @@ if (isset($_GET['id'])) {
 				$_SESSION['success'] = 'La imagen se ha registrado correctamente';
 				header('Location: ' . BASE_URL . 'productos/show.php?id=' . $producto);
 			}
+		}else{
+			$mensaje = 'La imagen no ha podido ser cargada en el servidor';
 		}
 	}
 }
@@ -61,13 +75,13 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 				<?php if(isset($mensaje)): ?>
 					<p class="alert alert-danger"><?php echo $mensaje; ?></p>
 				<?php endif; ?>
-
+				<p class="text-danger">Si tiene un asterisco es obligatorio</p>
 				<form action="" method="post" enctype="multipart/form-data">
 					<div class="form-group">
-						<label><h4 class="text-info">Producto: <?php echo $prod['nombre']; ?></h4></label>
+						<label><h5 class="text-info">Producto: <?php echo $prod['nombre']; ?></h5></label>
 					</div>
 					<div class="form-group">
-						<label>Título</label>
+						<label>Título<span class="text-danger">*</span></label>
 						<input type="text" name="titulo" value="<?php echo @($titulo); ?>" placeholder="Título de la imagen" class="form-control">
 					</div>
 					<div class="form-group">
@@ -77,7 +91,7 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 						</textarea>
 					</div>
 					<div class="form-group">
-						<label>Portada</label>
+						<label>Portada<span class="text-danger">*</span></label>
 						<select name="portada" class="form-control">
 							<option value="">Seleccione...</option>
 							<option value="1">Si</option>
@@ -85,7 +99,7 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 						</select>
 					</div>
 					<div class="form-group">
-						<label>Imagen</label>
+						<label>Imagen<span class="text-danger">*</span></label>
 						<input type="file" name="imagen" class="form-control">
 					</div>
 					<div class="form-group">

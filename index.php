@@ -3,24 +3,14 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 session_start();
 
+require('class/productoModel.php');
+require('class/imagenModel.php');
+require('class/config.php');
 
-define('DS', DIRECTORY_SEPARATOR);
-define('ROOT', realpath(dirname(__FILE__)) . DS);
-define('APP_PATH', ROOT . 'class' . DS);
+$imagenes = new imagenModel;
 
-try{
-	require APP_PATH . 'config.php';
-}
-catch(Exception $e){
-	echo $e->getMessage();
-}
+$img = $imagenes->getImagenes();
 
-
-
-
-//print_r(APP_PATH);exit;
-
-if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] == 'si'):
 ?>
 <!DOCTYPE html>
 <html>
@@ -36,21 +26,20 @@ if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] == 'si'):
 		<?php include('partials/header.php'); ?>
 		<div class="row">
 			<div class="col-md-12 mt-3">
-				<h4>
-					Bienvenido(a) <?php echo $_SESSION['nombre']; ?>
-				</h4>
-				<ul>
-					<li>Su id de usuario es <?php echo $_SESSION['id']; ?></li>
-					<li>Su correo es <?php echo $_SESSION['email']; ?></li>
-					<li>Su rol es <?php echo $_SESSION['rol']; ?></li>
-				</ul>
+				<?php include('partials/mensajes.php'); ?>
+				<?php foreach($img as $img): ?>
+					<a href="<?php echo BASE_URL . 'productos/verOferta.php?id=' . $img['id']; ?>">
+						<div class="col-md-3">
+							<h5><?php echo $img['producto']; ?></h5>
+							<img src="<?php echo BASE_IMG . 'productos/' . $img['imagen']; ?>" class="img-responsive" >
+							<h5 class="text-info">$ <?php echo number_format($img['precio'],0,',','.'); ?></h5>
+						</div>
+					</a>
+				<?php endforeach; ?>
 			</div>
 		</div>
 	</div>
 </body>
 </html>
-<?php else: 
-	header('Location: ' . BASE_URL . 'usuarios/login.php');
-endif;
-?>
-	
+
+
